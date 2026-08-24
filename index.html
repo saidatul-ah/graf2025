@@ -1,9 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="ms" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pelaporan Global Research Alumni Fellowship 2025</title>
+    <title>Dashboard Pelaporan Candidate & Publication</title>
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -83,7 +83,7 @@
                     </div>
                     <div>
                         <h1 class="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-                            Dashboard Pelaporan Global Research Alumni Fellowship 2025
+                            Dashboard Candidate & Publication
                         </h1>
                         <p class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
                             <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -137,11 +137,11 @@
             <!-- KPI Summary Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 
-                <!-- Card 1: Jumlah Felo -->
+                <!-- Card 1: Jumlah Candidate -->
                 <div class="glass-card rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700/80 shadow-sm relative overflow-hidden group">
                     <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-brand-500/10 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Jumlah Felo</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Jumlah Candidate</span>
                         <div class="p-2 bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 rounded-lg">
                             <i class="fa-solid fa-users text-lg"></i>
                         </div>
@@ -179,6 +179,11 @@
                     <div class="mt-3">
                         <h2 id="kpiTotalPayment" class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">RM 0</h2>
                         <p id="kpiPaymentAvg" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Purata: RM 0 / candidate</p>
+                        <div id="kpiPaymentBreakdown" class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1.5 pt-1.5 border-t border-slate-200/50 dark:border-slate-700/50 flex flex-wrap gap-2">
+                            <span>Asal: <strong id="kpiGrossPayment" class="text-slate-700 dark:text-slate-300">RM 0</strong></span>
+                            <span>•</span>
+                            <span>Caj Bank: <strong id="kpiTotalBankCharge" class="text-amber-600 dark:text-amber-400">+RM 0</strong></span>
+                        </div>
                     </div>
                 </div>
 
@@ -208,7 +213,7 @@
                         <span class="text-sm font-bold text-slate-700 dark:text-slate-200">Penapis Data:</span>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-grow max-w-3xl">
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 flex-grow max-w-4xl">
                         <!-- Country Filter -->
                         <div>
                             <label for="filterCountry" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Negara</label>
@@ -223,6 +228,15 @@
                             <select id="filterStatus" onchange="applyFilters()" class="w-full text-xs rounded-xl border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 p-2.5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
                                 <option value="ALL">Semua Status</option>
                             </select>
+                        </div>
+
+                        <!-- Bank Charge Deduction Rate (Standard Fallback) -->
+                        <div>
+                            <label for="inputDefaultBankFeeRate" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Kadar Caj Bank Tambahan (Jika Tiada Kolum)</label>
+                            <div class="relative">
+                                <input type="number" id="inputDefaultBankFeeRate" value="0" min="0" max="100" step="0.5" onchange="applyFilters()" placeholder="0" class="w-full text-xs rounded-xl border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 pr-7 pl-3 py-2.5 focus:ring-2 focus:ring-brand-500 focus:border-brand-500">
+                                <span class="absolute right-3 top-2.5 text-xs text-slate-400 font-bold">%</span>
+                            </div>
                         </div>
 
                         <!-- Search Bar -->
@@ -245,12 +259,12 @@
             <!-- Dashboard Charts Grid (2x2 Grid Layout) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 
-                <!-- Chart 1: Bil GRAF ikut Negara -->
+                <!-- Chart 1: Bil Candidate ikut Negara -->
                 <div class="glass-card rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-flag text-brand-500"></i> Bilangan GRAF Mengikut Negara
+                                <i class="fa-solid fa-flag text-brand-500"></i> Bilangan Candidate Mengikut Negara
                             </h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400">Jumlah calon berasaskan taburan negara asal</p>
                         </div>
@@ -260,12 +274,12 @@
                     </div>
                 </div>
 
-                <!-- Chart 2: Status Penerbitan January -->
+                <!-- Chart 2: Status Publication January -->
                 <div class="glass-card rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700/80 shadow-sm flex flex-col justify-between">
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-calendar-check text-sky-500"></i> Status Penerbitan (Bulan Januari)
+                                <i class="fa-solid fa-calendar-check text-sky-500"></i> Status Publication (Bulan Januari)
                             </h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400">Pecahan status artikel/penerbitan untuk bulan Januari</p>
                         </div>
@@ -295,7 +309,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <div>
                             <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-chart-column text-indigo-500"></i> Status Penerbitan mengikut Negara
+                                <i class="fa-solid fa-chart-column text-indigo-500"></i> Status Publication mengikut Negara
                             </h3>
                             <p class="text-xs text-slate-500 dark:text-slate-400">Perbandingan status penerbitan Januari dalam kalangan negara</p>
                         </div>
@@ -312,9 +326,9 @@
                 <div class="p-5 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h3 class="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
-                            <i class="fa-solid fa-table text-brand-500"></i> Senarai Lengkap GRAF
+                            <i class="fa-solid fa-table text-brand-500"></i> Senarai Detail Candidate
                         </h3>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Paparan maklumat terperinci daripada Google Sheet</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Paparan maklumat terperinci termasuk potongan caj bank</p>
                     </div>
                     <div class="flex items-center gap-2">
                         <button onclick="exportToCSV()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium transition flex items-center gap-1.5">
@@ -331,7 +345,9 @@
                                 <th class="p-3.5">Candidate / Nama</th>
                                 <th class="p-3.5">Negara</th>
                                 <th class="p-3.5">Status (Januari)</th>
-                                <th class="p-3.5 text-right pr-5">Jumlah Bayaran (RM)</th>
+                                <th class="p-3.5 text-right">Bayaran Asal (RM)</th>
+                                <th class="p-3.5 text-right">+ Caj Bank (RM)</th>
+                                <th class="p-3.5 text-right pr-5">Jumlah Keseluruhan (RM)</th>
                             </tr>
                         </thead>
                         <tbody id="dataTableBody" class="divide-y divide-slate-200/60 dark:divide-slate-700/60 text-slate-700 dark:text-slate-200">
@@ -387,8 +403,12 @@
                     <select id="mapStatus" class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 p-2"></select>
                 </div>
                 <div>
-                    <label class="block font-medium mb-1 text-slate-700 dark:text-slate-300">Kolum Jumlah Bayaran:</label>
+                    <label class="block font-medium mb-1 text-slate-700 dark:text-slate-300">Kolum Jumlah Bayaran (Kasar):</label>
                     <select id="mapPayment" class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 p-2"></select>
+                </div>
+                <div>
+                    <label class="block font-medium mb-1 text-slate-700 dark:text-slate-300">Kolum Caj Bank / Fee (Opsional):</label>
+                    <select id="mapBankCharge" class="w-full rounded-lg border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 p-2"></select>
                 </div>
             </div>
 
@@ -412,7 +432,8 @@
             candidate: '',
             country: '',
             status: '',
-            payment: ''
+            payment: '',
+            bankCharge: ''
         };
 
         // Pagination
@@ -453,64 +474,100 @@
         }
 
         // Fetch Live Data from Google Sheets CSV
-        function fetchLiveData() {
+        async function fetchLiveData() {
             const btnRefresh = document.getElementById('btnRefresh');
             const refreshIcon = document.getElementById('refreshIcon');
             const statusEl = document.getElementById('lastUpdated');
 
             refreshIcon.classList.add('fa-spin');
-            statusEl.innerHTML = `Status: <span class="text-amber-500 font-medium">Mengambil data terkini...</span>`;
+            statusEl.innerHTML = `Status: <span class="text-amber-500 font-medium"><i class="fa-solid fa-spinner fa-spin"></i> Mengambil data terkini...</span>`;
 
-            Papa.parse(CSV_URL, {
-                download: true,
-                header: true,
-                skipEmptyLines: true,
-                complete: function(results) {
-                    refreshIcon.classList.remove('fa-spin');
-                    if (results.data && results.data.length > 0) {
-                        rawData = results.data;
-                        headers = results.meta.fields || Object.keys(rawData[0]);
-                        
-                        // Auto-detect columns if not set
-                        autoDetectColumns();
-                        
-                        // Populate modal mapping options
-                        populateMappingDropdowns();
-
-                        // Process Data
-                        processAndRenderData();
-
-                        const now = new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                        statusEl.innerHTML = `Status: <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Terkini (${now})</span>`;
-                    } else {
-                        statusEl.innerHTML = `Status: <span class="text-rose-500">Tiada data dijumpai. Menggunakan data simulasi.</span>`;
-                        loadFallbackSampleData();
-                    }
-                },
-                error: function(err) {
-                    refreshIcon.classList.remove('fa-spin');
-                    console.warn("Gagal memuatkan Google Sheet CSV live, menggunakan dataset contoh:", err);
-                    statusEl.innerHTML = `Status: <span class="text-rose-500">CORS/Rangkaian disekat. Memuatkan data sampel...</span>`;
-                    loadFallbackSampleData();
+            try {
+                // Try direct fetch first
+                let csvText = '';
+                try {
+                    const response = await fetch(CSV_URL, { cache: 'no-cache' });
+                    if (!response.ok) throw new Error(`HTTP status ${response.status}`);
+                    csvText = await response.text();
+                } catch (e) {
+                    console.warn("Direct fetch failed, trying CORS proxy fallback...", e);
+                    // Fallback to public CORS proxy if blocked by browser sandbox
+                    const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(CSV_URL);
+                    const proxyResp = await fetch(proxyUrl);
+                    if (!proxyResp.ok) throw new Error("Gagal mengambil data dari proxy.");
+                    csvText = await proxyResp.text();
                 }
-            });
+
+                // Clean BOM (\uFEFF) character that Google Sheets CSV inserts at start
+                csvText = csvText.replace(/^\uFEFF/, '').trim();
+
+                if (!csvText) {
+                    throw new Error("Kandungan CSV kosong.");
+                }
+
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: 'greedy',
+                    complete: function(results) {
+                        refreshIcon.classList.remove('fa-spin');
+                        if (results.data && results.data.length > 0) {
+                            // Clean column names from hidden spaces or unicode markers
+                            rawData = results.data.map(row => {
+                                const cleanRow = {};
+                                Object.keys(row).forEach(k => {
+                                    const cleanKey = String(k).trim().replace(/^[\uFEFF"']+|[\uFEFF"']+$/g, '');
+                                    cleanRow[cleanKey] = row[k];
+                                });
+                                return cleanRow;
+                            });
+
+                            headers = (results.meta.fields || Object.keys(rawData[0])).map(f => 
+                                String(f).trim().replace(/^[\uFEFF"']+|[\uFEFF"']+$/g, '')
+                            );
+
+                            // Auto-detect columns
+                            autoDetectColumns();
+                            
+                            // Populate modal mapping options
+                            populateMappingDropdowns();
+
+                            // Process Data
+                            processAndRenderData();
+
+                            const now = new Date().toLocaleTimeString('ms-MY', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                            statusEl.innerHTML = `Status: <span class="text-emerald-600 dark:text-emerald-400 font-semibold"><i class="fa-solid fa-circle-check"></i> Terkini (${rawData.length} rekod • ${now})</span>`;
+                        } else {
+                            throw new Error("Tiada rekod ditemui.");
+                        }
+                    },
+                    error: function(err) {
+                        throw err;
+                    }
+                });
+
+            } catch (err) {
+                refreshIcon.classList.remove('fa-spin');
+                console.warn("Gagal memuatkan data Google Sheet CSV:", err);
+                statusEl.innerHTML = `Status: <span class="text-rose-500 font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> Gagal Membaca Data (${err.message || 'Rangkaian'}). Memuatkan data sampel...</span>`;
+                loadFallbackSampleData();
+            }
         }
 
         function loadFallbackSampleData() {
-            headers = ["Candidate Name", "Candidate Citizen", "Status Publication (Jan)", "Jumlah Bayaran (RM)"];
+            headers = ["Candidate Name", "Candidate Citizen", "Status Publication (Jan)", "Jumlah Bayaran (RM)", "Caj Bank (RM)"];
             rawData = [
-                { "Candidate Name": "Ahmad Rizky", "Candidate Citizen": "Malaysia", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1500" },
-                { "Candidate Name": "Siti Nurhaliza", "Candidate Citizen": "Malaysia", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1800" },
-                { "Candidate Name": "Budi Santoso", "Candidate Citizen": "Indonesia", "Status Publication (Jan)": "Under Review", "Jumlah Bayaran (RM)": "1200" },
-                { "Candidate Name": "Dewi Lestari", "Candidate Citizen": "Indonesia", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1400" },
-                { "Candidate Name": "Nguyen Van A", "Candidate Citizen": "Vietnam", "Status Publication (Jan)": "Pending", "Jumlah Bayaran (RM)": "950" },
-                { "Candidate Name": "Tran Thi B", "Candidate Citizen": "Vietnam", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1100" },
-                { "Candidate Name": "Somchai Jaidee", "Candidate Citizen": "Thailand", "Status Publication (Jan)": "Accepted", "Jumlah Bayaran (RM)": "1300" },
-                { "Candidate Name": "Kornchat S.", "Candidate Citizen": "Thailand", "Status Publication (Jan)": "Rejected", "Jumlah Bayaran (RM)": "800" },
-                { "Candidate Name": "Maria Clara", "Candidate Citizen": "Philippines", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1600" },
-                { "Candidate Name": "Juan Dela Cruz", "Candidate Citizen": "Philippines", "Status Publication (Jan)": "Under Review", "Jumlah Bayaran (RM)": "1250" },
-                { "Candidate Name": "Lee Min Ho", "Candidate Citizen": "Korea", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "2200" },
-                { "Candidate Name": "Park Ji Sung", "Candidate Citizen": "Korea", "Status Publication (Jan)": "Accepted", "Jumlah Bayaran (RM)": "2100" }
+                { "Candidate Name": "Ahmad Rizky", "Candidate Citizen": "Malaysia", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1500", "Caj Bank (RM)": "15" },
+                { "Candidate Name": "Siti Nurhaliza", "Candidate Citizen": "Malaysia", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1800", "Caj Bank (RM)": "18" },
+                { "Candidate Name": "Budi Santoso", "Candidate Citizen": "Indonesia", "Status Publication (Jan)": "Under Review", "Jumlah Bayaran (RM)": "1200", "Caj Bank (RM)": "12" },
+                { "Candidate Name": "Dewi Lestari", "Candidate Citizen": "Indonesia", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1400", "Caj Bank (RM)": "14" },
+                { "Candidate Name": "Nguyen Van A", "Candidate Citizen": "Vietnam", "Status Publication (Jan)": "Pending", "Jumlah Bayaran (RM)": "950", "Caj Bank (RM)": "9.5" },
+                { "Candidate Name": "Tran Thi B", "Candidate Citizen": "Vietnam", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1100", "Caj Bank (RM)": "11" },
+                { "Candidate Name": "Somchai Jaidee", "Candidate Citizen": "Thailand", "Status Publication (Jan)": "Accepted", "Jumlah Bayaran (RM)": "1300", "Caj Bank (RM)": "13" },
+                { "Candidate Name": "Kornchat S.", "Candidate Citizen": "Thailand", "Status Publication (Jan)": "Rejected", "Jumlah Bayaran (RM)": "800", "Caj Bank (RM)": "8" },
+                { "Candidate Name": "Maria Clara", "Candidate Citizen": "Philippines", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "1600", "Caj Bank (RM)": "16" },
+                { "Candidate Name": "Juan Dela Cruz", "Candidate Citizen": "Philippines", "Status Publication (Jan)": "Under Review", "Jumlah Bayaran (RM)": "1250", "Caj Bank (RM)": "12.5" },
+                { "Candidate Name": "Lee Min Ho", "Candidate Citizen": "Korea", "Status Publication (Jan)": "Published", "Jumlah Bayaran (RM)": "2200", "Caj Bank (RM)": "22" },
+                { "Candidate Name": "Park Ji Sung", "Candidate Citizen": "Korea", "Status Publication (Jan)": "Accepted", "Jumlah Bayaran (RM)": "2100", "Caj Bank (RM)": "21" }
             ];
             autoDetectColumns();
             populateMappingDropdowns();
@@ -526,25 +583,30 @@
                     const idx = lowerHeaders.findIndex(h => h.includes(kw));
                     if (idx !== -1) return headers[idx];
                 }
+                if (defaultIdx === -1) return '';
                 return headers[defaultIdx] || headers[Math.min(defaultIdx, headers.length - 1)] || headers[0];
             };
 
             colMap.candidate = findCol(['candidate name', 'candidate', 'calon', 'nama', 'name', 'student', 'author'], 0);
             colMap.country = findCol(['candidate citizen', 'citizen', 'kewarganegaraan', 'warganegara', 'negara', 'country', 'nation', 'location', 'asal'], 1);
-            colMap.status = findCol(['january', 'januari', 'jan', 'status', 'publication', 'penerbitan'], 2);
-            colMap.payment = findCol(['bayaran', 'payment', 'yuran', 'fee', 'jumlah', 'amount', 'harga', 'cost', 'pakej', 'rm', 'usd', 'total', 'paid', 'yuran pendaftaran'], 3);
+            colMap.status = findCol(['status publication', 'january', 'januari', 'jan', 'status', 'publication', 'penerbitan'], 2);
+            colMap.payment = findCol(['jumlah bayaran', 'bayaran', 'payment', 'yuran', 'fee', 'jumlah', 'amount', 'harga', 'cost', 'pakej', 'paid', 'total', 'rm', 'usd'], 3);
+            colMap.bankCharge = findCol(['caj bank', 'bank charge', 'caj', 'bank fee', 'fee', 'transaction fee', 'caj pengurusan', 'processing fee'], -1);
         }
 
         function populateMappingDropdowns() {
-            const populate = (elementId, selectedVal) => {
+            const populate = (elementId, selectedVal, allowNone = false) => {
                 const el = document.getElementById(elementId);
-                el.innerHTML = headers.map(h => `<option value="${h}" ${h === selectedVal ? 'selected' : ''}>${h}</option>`).join('');
+                let html = allowNone ? `<option value="">-- Tiada (Guna Peratusan Default) --</option>` : '';
+                html += headers.map(h => `<option value="${h}" ${h === selectedVal ? 'selected' : ''}>${h}</option>`).join('');
+                el.innerHTML = html;
             };
 
             populate('mapCandidate', colMap.candidate);
             populate('mapCountry', colMap.country);
             populate('mapStatus', colMap.status);
             populate('mapPayment', colMap.payment);
+            populate('mapBankCharge', colMap.bankCharge, true);
         }
 
         function toggleMappingModal(show) {
@@ -556,6 +618,7 @@
             colMap.country = document.getElementById('mapCountry').value;
             colMap.status = document.getElementById('mapStatus').value;
             colMap.payment = document.getElementById('mapPayment').value;
+            colMap.bankCharge = document.getElementById('mapBankCharge').value;
             
             toggleMappingModal(false);
             processAndRenderData();
@@ -565,7 +628,8 @@
             // Display mapped columns on the status bar
             const badge = document.getElementById('mappingBadge');
             if (badge) {
-                badge.innerText = `Kolum: Candidate [${colMap.candidate}] | Citizen [${colMap.country}] | Status [${colMap.status}] | Bayaran [${colMap.payment}]`;
+                const bcText = colMap.bankCharge ? ` | Caj Bank [${colMap.bankCharge}]` : ' | Caj Bank [Secara Peratusan]';
+                badge.innerText = `Kolum: Candidate [${colMap.candidate}] | Citizen [${colMap.country}] | Status [${colMap.status}] | Bayaran [${colMap.payment}]${bcText}`;
             }
             populateFilterOptions();
             applyFilters();
@@ -595,6 +659,13 @@
             if (statusSet.has(currentStatus)) selStatus.value = currentStatus;
         }
 
+        // Helper function to update all dashboard elements
+        function updateDashboardUI() {
+            calculateKPIs();
+            rebuildCharts();
+            renderTable();
+        }
+
         function applyFilters() {
             const selectedCountry = document.getElementById('filterCountry').value;
             const selectedStatus = document.getElementById('filterStatus').value;
@@ -620,10 +691,11 @@
             document.getElementById('filterCountry').value = 'ALL';
             document.getElementById('filterStatus').value = 'ALL';
             document.getElementById('searchQuery').value = '';
+            document.getElementById('inputDefaultBankFeeRate').value = '0';
             applyFilters();
         }
 
-        // Helper to parse payment numeric values safely
+        // Helper to parse payment & numeric values safely
         function parsePayment(val) {
             if (val === null || val === undefined) return 0;
             if (typeof val === 'number') return isNaN(val) ? 0 : val;
@@ -651,26 +723,40 @@
             return 0;
         }
 
-        // Update Dashboard Metrics and Charts
-        function updateDashboardUI() {
-            calculateKPIs();
-            renderTable();
-            rebuildCharts();
+        // Helper to calculate row financial metrics (Gross, Additional Bank Fee, Total Overall)
+        function getRowPaymentMetrics(row) {
+            const gross = parsePayment(row[colMap.payment]);
+            let bankFee = 0;
+
+            if (colMap.bankCharge && row[colMap.bankCharge] !== undefined && row[colMap.bankCharge] !== '') {
+                bankFee = parsePayment(row[colMap.bankCharge]);
+            } else {
+                const rateInput = parseFloat(document.getElementById('inputDefaultBankFeeRate')?.value || 0);
+                bankFee = gross * (rateInput / 100);
+            }
+
+            // Bank Charge is ADDED to gross payment as extra cost
+            const totalWithFee = gross + bankFee;
+            return { gross, bankFee, totalWithFee };
         }
 
         function calculateKPIs() {
             const totalCandidates = filteredData.length;
             
             const countries = new Set();
-            let totalPayment = 0;
+            let totalGrossPayment = 0;
+            let totalBankFee = 0;
+            let totalOverallPayment = 0;
             let publishedCount = 0;
 
             filteredData.forEach(row => {
                 const country = String(row[colMap.country] || '').trim();
                 if (country) countries.add(country);
 
-                const pay = parsePayment(row[colMap.payment]);
-                totalPayment += pay;
+                const { gross, bankFee, totalWithFee } = getRowPaymentMetrics(row);
+                totalGrossPayment += gross;
+                totalBankFee += bankFee;
+                totalOverallPayment += totalWithFee;
 
                 const status = String(row[colMap.status] || '').toLowerCase();
                 if (status.includes('published') || status.includes('terbit') || status.includes('complete') || status.includes('pass') || status.includes('lulus')) {
@@ -678,7 +764,7 @@
                 }
             });
 
-            const avgPayment = totalCandidates > 0 ? (totalPayment / totalCandidates) : 0;
+            const avgPayment = totalCandidates > 0 ? (totalOverallPayment / totalCandidates) : 0;
             const pubRate = totalCandidates > 0 ? Math.round((publishedCount / totalCandidates) * 100) : 0;
 
             document.getElementById('kpiTotalCandidates').innerText = totalCandidates.toLocaleString();
@@ -687,8 +773,12 @@
             document.getElementById('kpiTotalCountries').innerText = countries.size;
             document.getElementById('kpiCountrySub').innerText = `${countries.size} negara asal`;
 
-            document.getElementById('kpiTotalPayment').innerText = `RM ${totalPayment.toLocaleString('ms-MY', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+            // Display Total Overall Payment (Gross + Bank Charge)
+            document.getElementById('kpiTotalPayment').innerText = `RM ${totalOverallPayment.toLocaleString('ms-MY', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
             document.getElementById('kpiPaymentAvg').innerText = `Purata: RM ${avgPayment.toLocaleString('ms-MY', { maximumFractionDigits: 0 })} / calon`;
+            
+            document.getElementById('kpiGrossPayment').innerText = `RM ${totalGrossPayment.toLocaleString('ms-MY', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+            document.getElementById('kpiTotalBankCharge').innerText = `+RM ${totalBankFee.toLocaleString('ms-MY', { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 
             document.getElementById('kpiJanPublicationRate').innerText = `${pubRate}%`;
             document.getElementById('kpiJanPublicationSub').innerText = `${publishedCount} daripada ${totalCandidates} diterbit (Jan)`;
@@ -701,17 +791,19 @@
 
             // Prepare Aggregates
             const countryCounts = {};
-            const countryPayments = {};
+            const countryGrossPayments = {};
+            const countryTotalPayments = {};
             const statusCounts = {};
             const stackedData = {}; // country -> { status -> count }
 
             filteredData.forEach(row => {
                 const country = String(row[colMap.country] || 'N/A').trim() || 'N/A';
                 const status = String(row[colMap.status] || 'N/A').trim() || 'N/A';
-                const payment = parsePayment(row[colMap.payment]);
+                const { gross, totalWithFee } = getRowPaymentMetrics(row);
 
                 countryCounts[country] = (countryCounts[country] || 0) + 1;
-                countryPayments[country] = (countryPayments[country] || 0) + payment;
+                countryGrossPayments[country] = (countryGrossPayments[country] || 0) + gross;
+                countryTotalPayments[country] = (countryTotalPayments[country] || 0) + totalWithFee;
                 statusCounts[status] = (statusCounts[status] || 0) + 1;
 
                 if (!stackedData[country]) stackedData[country] = {};
@@ -775,9 +867,9 @@
                 }
             });
 
-            // 3. Chart Payment (Bar & Line Combo)
+            // 3. Chart Payment (Bar Combo: Overall Total vs Base Payment)
             const ctxPayment = document.getElementById('chartPayment').getContext('2d');
-            const avgPaymentPerCountry = countryLabels.map(c => countryCounts[c] ? (countryPayments[c] / countryCounts[c]) : 0);
+            const avgTotalPerCountry = countryLabels.map(c => countryCounts[c] ? (countryTotalPayments[c] / countryCounts[c]) : 0);
             
             chartInstances.payment = new Chart(ctxPayment, {
                 type: 'bar',
@@ -786,16 +878,24 @@
                     datasets: [
                         {
                             type: 'bar',
-                            label: 'Jumlah Bayaran (RM)',
-                            data: countryLabels.map(c => countryPayments[c]),
+                            label: 'Jumlah Keseluruhan (RM)',
+                            data: countryLabels.map(c => countryTotalPayments[c]),
                             backgroundColor: '#10b981',
                             borderRadius: 8,
                             yAxisID: 'y'
                         },
                         {
+                            type: 'bar',
+                            label: 'Bayaran Asal (RM)',
+                            data: countryLabels.map(c => countryGrossPayments[c]),
+                            backgroundColor: '#94a3b8',
+                            borderRadius: 8,
+                            yAxisID: 'y'
+                        },
+                        {
                             type: 'line',
-                            label: 'Purata Bayaran (RM)',
-                            data: avgPaymentPerCountry,
+                            label: 'Purata Keseluruhan (RM)',
+                            data: avgTotalPerCountry,
                             borderColor: '#f59e0b',
                             backgroundColor: '#f59e0b',
                             borderWidth: 2,
@@ -862,7 +962,7 @@
             tbody.innerHTML = '';
 
             if (filteredData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Tiada rekod dijumpai mengikut penapis semasa.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7" class="p-6 text-center text-slate-400">Tiada rekod dijumpai mengikut penapis semasa.</td></tr>`;
                 document.getElementById('tableInfo').innerText = `Menunjukkan 0 rekod`;
                 document.getElementById('pageIndicator').innerText = `0 / 0`;
                 document.getElementById('btnPrevPage').disabled = true;
@@ -882,7 +982,7 @@
                 const candidate = row[colMap.candidate] || '-';
                 const country = row[colMap.country] || '-';
                 const status = row[colMap.status] || '-';
-                const paymentNum = parsePayment(row[colMap.payment]);
+                const { gross, bankFee, totalWithFee } = getRowPaymentMetrics(row);
 
                 // Badge colors for publication status
                 let badgeClass = 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300';
@@ -911,8 +1011,14 @@
                             ${escapeHtml(status)}
                         </span>
                     </td>
-                    <td class="p-3.5 text-right pr-5 font-mono font-medium text-emerald-600 dark:text-emerald-400">
-                        RM ${paymentNum.toLocaleString('ms-MY', { minimumFractionDigits: 2 })}
+                    <td class="p-3.5 text-right font-mono text-slate-600 dark:text-slate-400">
+                        RM ${gross.toLocaleString('ms-MY', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td class="p-3.5 text-right font-mono text-amber-600 dark:text-amber-400">
+                        +RM ${bankFee.toLocaleString('ms-MY', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td class="p-3.5 text-right pr-5 font-mono font-bold text-emerald-600 dark:text-emerald-400">
+                        RM ${totalWithFee.toLocaleString('ms-MY', { minimumFractionDigits: 2 })}
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -930,22 +1036,32 @@
         }
 
         function escapeHtml(str) {
-            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
 
-        // Export Filtered Table to CSV
         function exportToCSV() {
             if (!filteredData || filteredData.length === 0) {
                 alert("Tiada data untuk dieksport.");
                 return;
             }
 
-            const exportRows = filteredData.map(row => ({
-                "Candidate": row[colMap.candidate] || '',
-                "Negara": row[colMap.country] || '',
-                "Status (Januari)": row[colMap.status] || '',
-                "Jumlah Bayaran (RM)": parsePayment(row[colMap.payment])
-            }));
+            const exportRows = filteredData.map(row => {
+                const { gross, bankFee, totalWithFee } = getRowPaymentMetrics(row);
+                return {
+                    "Candidate": row[colMap.candidate] || '',
+                    "Negara": row[colMap.country] || '',
+                    "Status (Januari)": row[colMap.status] || '',
+                    "Bayaran Asal (RM)": gross,
+                    "Caj Bank (RM)": bankFee,
+                    "Jumlah Keseluruhan (RM)": totalWithFee
+                };
+            });
 
             const csvContent = Papa.unparse(exportRows);
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
